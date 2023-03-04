@@ -12,13 +12,16 @@ import leafmap.colormaps as cm
 from leafmap.common import hex_to_rgb
 from st_on_hover_tabs import on_hover_tabs
 
+from pages.Home_Page import home_pg
+from pages.Housing import housing
+
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
 
-with st.sidebar: 
-    tabs = on_hover_tabs(tabName=['Home', '1_Housing', 'Settings'], 
-                            iconName=['dashboard', 'money', 'economy'],
+with st.sidebar: # CALENDER EMBED
+    tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Settings', 'Profile'], 
+                            iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'account_box', 'assignment'],
                             styles = {'navtab': {'background-color':'#111',
                                                 'color': '#818181',
                                                 'font-size': '18px',
@@ -31,7 +34,32 @@ with st.sidebar:
                                     'tabStyle' : {'list-style-type': 'none',
                                                     'margin-bottom': '30px',
                                                     'padding-left': '30px'}},
-                            key="1")
+                            key="1", default_choice=0)
+
+if tabs=="Home":
+    home_pg()
+
+if tabs=="U.S Housing":
+    housing()
+
+if tabs=="County":
+    st.title("County")
+    st.write('Name of option is {}'.format(tabs))
+
+if tabs=="Recommend":
+    st.title("Recommend")
+    st.write('Name of option is {}'.format(tabs))
+
+if tabs=="Settings":
+    st.title("Settings")
+    st.write('Name of option is {}'.format(tabs))
+
+if tabs=="Profile":
+    st.title("Profile")
+    st.write('Name of option is {}'.format(tabs))
+a="open('./style.css').read()"
+
+
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab
 iconName: This is the name of the icon you wish to use in the sidebar
@@ -41,33 +69,3 @@ styles: Borrowed an implementation from the wonderful Victoryhb implementation. 
     'iconStyle' which is the icon tag that contains the icons
     'tabStyle' which is the list contains the tabName
 """
-
-st.title("County Assessment Project")
-st.markdown(
-    """
-    This is a ...
-    """
-)
-
-st.title("About the Variables/Algorithm")
-st.markdown(
-    """
-    List of variables: 
-    
-    Things to do: 
-        
-        1. Add map of subway, bus, railway, and other public transportations after querying the user's selected coords (after county analysis and post location decision)
-        
-        2. __
-    """
-)
-
-st.title("Sources")
-st.markdown(
-    """
-    ___
-    [___](https://google.com)
-    """
-)
-
-st.info("Toggle the sidebar menu on the left to navigate to different pages.")
