@@ -12,21 +12,18 @@ from scipy.spatial import distance
 import streamlit as st
 from sklearn import decomposition
 import numpy as np
-from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
+from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder, JsCode
+
+from distutils import errors
+from distutils.log import error
+import altair as alt
+from itertools import cycle
+
+import requests
 
 ADVICE="https://okld-gallery.streamlit.app/?p=pandas-profiling USE THIS FOR GENERAL REPORT"
 
 def county():
-    from distutils import errors
-    from distutils.log import error
-    import streamlit as st
-    import pandas as pd 
-    import numpy as np
-    import altair as alt
-    from itertools import cycle
-
-    from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
-
     np.random.seed(42)
 
     _datafill="###################################"
@@ -153,8 +150,10 @@ def county():
     gb.configure_grid_options(domLayout='normal')
     gridOptions = gb.build()
 
+
+
     _GridDisplay="##########################"#Display the grid
-    st.header("Streamlit Ag-Grid")
+    st.header("CSV FMR Data Displayed and Graphed")
 
     grid_response = AgGrid(
         df, 
@@ -171,6 +170,9 @@ def county():
     df = grid_response['data']
     selected = grid_response['selected_rows']
     selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
+
+
+
 
 
     with st.spinner("Displaying results..."):
@@ -201,14 +203,6 @@ def county():
 
 
 
-
-
-    nested_grids_for_grouped_analysis=""
-    import streamlit as st
-    from st_aggrid import AgGrid, GridOptionsBuilder, JsCode, GridUpdateMode
-    import pandas as pd
-    import numpy as np
-    import requests
 
 
     url = "https://www.ag-grid.com/example-assets/master-detail-data.json"
@@ -279,7 +273,7 @@ def county():
 
 
 
-    comparing_data_mode="""@st.cache()
+    @st.cache()
     def get_data_ex4():
         df = pd.DataFrame(
             np.random.randint(0, 100, 50).reshape(-1, 5), columns=list("abcde")
@@ -288,15 +282,15 @@ def county():
 
     df = get_data_ex4()
     st.markdown("""
-    ### Two grids 
-    #As in other streamlit components, it is possible to render two components for the same data using distinct ```key``` parameters.
+    ## Two grids 
+    As in other streamlit components, it is possible to render two components for the same data using distinct ```key``` parameters.
     """)
 
     st.subheader("Input data")
     st.dataframe(df)
 
     st.subheader("Editable Grids")
-    c1, c2 = st.beta_columns(2)
+    c1, c2 = st.columns(2)
     with c1:
         grid_return1 = AgGrid(df, key='grid1', editable=True)
         st.text("Grid 1 Return")
@@ -305,7 +299,7 @@ def county():
     with c2:
         grid_return2 = AgGrid(df,  key='grid2', editable=True)
         st.text("Grid 2 Return")
-        st.write(grid_return2['data'])"""
+        st.write(grid_return2['data'])
 
 
 

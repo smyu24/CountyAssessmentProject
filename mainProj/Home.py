@@ -14,7 +14,7 @@ from st_on_hover_tabs import on_hover_tabs
 
 from pages.Home_Page import home_pg
 from pages.Housing import housing
-b="""from pages.County import _"""
+from pages.County import county
 from pages.Recommendation import recommendation
 from pages.Settings import settings
 from pages.Profile import profile
@@ -47,8 +47,7 @@ if tabs=="U.S Housing":
     housing()
 
 if tabs=="County":
-    st.title("County")
-    st.write('Name of option is {}'.format(tabs))
+    county()
 
 if tabs=="Recommend":
     recommendation()
