@@ -6,7 +6,10 @@ def home_pg():
         This is a ...
         """
     )
-
+    st_lottie("https://assets4.lottiefiles.com/packages/lf20_yrelFtPfpX.json", key="user") # pip install st_lottie
+    st_lottie("https://assets7.lottiefiles.com/packages/lf20_llbjwp92qL.json", key="user") # pip install st_lottie
+    
+    
     st.title("About the Variables/Algorithm")
     st.markdown(
         """
