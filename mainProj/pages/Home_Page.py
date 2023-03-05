@@ -23,7 +23,6 @@ def home_pg():
     st.title("Sources")
     st.markdown(
         """
-        ___
         [___](https://google.com)
         """
     )
