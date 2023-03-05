@@ -1,20 +1,20 @@
 # display csv in years in toggleable formal with years (descending on the top row) ('22-'19)
-import csv
 import pandas
 import os
 
 sibB = os.path.dirname(__file__)
 print(sibB)
-print(sibB[sibB.rindex(r"\\")])
+sibB = sibB[:sibB.rindex("\\")]
+sibB=sibB+r"\FMR_Data"
+print(sibB)
+print(os.listdir(sibB))
 for filename in os.listdir(sibB):
     if filename.endswith('.xlsx'):
-        with pandas.read_excel(filename, index_col=0) as f:
-            # SOMETHING
+        print(filename)
+        with pandas.read_excel(fr"{sibB}\{str(filename)}", index_col=0) as f:
             print(f)
-            print(f.columns.ravel())
+            #print(f.columns.ravel())
             #print(f[''].tolist())
-
-
 "ZIPCode"
 "HUD Area Code"
 "HUD Metro Fair Market Rent Area Name"
