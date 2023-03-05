@@ -14,6 +14,10 @@ from st_on_hover_tabs import on_hover_tabs
 
 from pages.Home_Page import home_pg
 from pages.Housing import housing
+b="""from pages.County import _"""
+from pages.Recommendation import recommendation
+from pages.Settings import settings
+from pages.Profile import profile
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
@@ -47,19 +51,14 @@ if tabs=="County":
     st.write('Name of option is {}'.format(tabs))
 
 if tabs=="Recommend":
-    st.title("Recommend")
-    st.write('Name of option is {}'.format(tabs))
-
+    recommendation()
+    
 if tabs=="Settings":
-    st.title("Settings")
-    st.write('Name of option is {}'.format(tabs))
+    settings()
 
 if tabs=="Profile":
-    st.title("Profile")
-    st.write('Name of option is {}'.format(tabs))
-a="open('./style.css').read()"
-
-
+    profile()
+    
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab
 iconName: This is the name of the icon you wish to use in the sidebar
