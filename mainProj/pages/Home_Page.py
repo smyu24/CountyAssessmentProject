@@ -1,4 +1,5 @@
 import streamlit as st
+
 def home_pg():
     st.title("County Assessment Project")
     st.markdown(
@@ -6,9 +7,6 @@ def home_pg():
         This is a ...
         """
     )
-    st_lottie("https://assets4.lottiefiles.com/packages/lf20_yrelFtPfpX.json", key="user") # pip install st_lottie
-    st_lottie("https://assets7.lottiefiles.com/packages/lf20_llbjwp92qL.json", key="user") # pip install st_lottie
-    
     
     st.title("About the Variables/Algorithm")
     st.markdown(
@@ -31,3 +29,17 @@ def home_pg():
     )
 
     st.info("Toggle the sidebar menu on the left to navigate to different pages.")
+
+    st.button('Click me')
+    st.checkbox('I agree')
+    st.radio('Pick one', ['cats', 'dogs'])
+    st.selectbox('Pick one', ['cats', 'dogs'])
+    st.multiselect('Buy', ['milk', 'apples', 'potatoes'])
+    st.slider('Pick a number', 0, 100, key="1231")
+    st.select_slider('Pick a size', ['S', 'M', 'L'])
+    st.text_input('First name')
+    st.number_input('Pick a number', 0, 10)
+    st.text_area('Text to translate')
+    st.date_input('Your birthday')
+    st.time_input('Meeting time')
+    st.file_uploader('Upload a CSV')

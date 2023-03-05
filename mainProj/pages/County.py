@@ -14,6 +14,8 @@ from sklearn import decomposition
 import numpy as np
 from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder
 
+ADVICE="https://okld-gallery.streamlit.app/?p=pandas-profiling USE THIS FOR GENERAL REPORT"
+
 def county():
     from distutils import errors
     from distutils.log import error
