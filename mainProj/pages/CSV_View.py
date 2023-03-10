@@ -4,32 +4,22 @@ import os
 
 # separate by HUD Area Code, then get HUD Metro Fair Market Rent Area Name; all relevant data per 
 sibB = os.path.dirname(__file__)
-print(sibB)
 sibB = sibB[:sibB.rindex("\\")]
 sibB=sibB+r"\FMR_Data"
+
 print(sibB)
-print(os.listdir(sibB))
-for filename in os.listdir(sibB):
-    if filename.endswith('.xlsx'):
-        print(filename, os.path.isfile(filename)) # pandas.read_excel(r"C:\Users\smyu2\streamlitProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx", sheet_name=str(filename), index_col=0)
-        xls = pandas.ExcelFile('2019.xlsx')
-        print(xls)
-        df1 = pandas.read_excel(xls, '2019.xlsx')
-        print(df1)
-        with pandas.read_excel(fr"{sibB}\{str(filename)}", sheet_name=str(filename), index_col=0) as f:
-            print(f)
-            #print(f.columns.ravel())
-            #print(f[''].tolist())
-"""
-excel = pd.ExcelFile("stocks.xlsx")
-excel.sheet_names # outputs sheet names in directory
+# need perms to modify or read the csv files; chmod is not installed on powershell
+df = pandas.read_csv("2019.csv", sep=',', header=0)
 
-excel = pd.ExcelFile("stocks.xlsx") # parses excel and outputs in row and column format
-df = excel.parse()
-df.head()
-
-https://www.nbshare.io/notebook/894032303/Pandas-Read-and-Write-Excel-File/
-"""
+# for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
+#     if filename.endswith('.xlsx'):
+#         print(filename, os.path.isfile(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx")) # pandas.read_excel(r"C:\Users\smyu2\streamlitProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx", sheet_name=str(filename), index_col=0)
+#         xls = pandas.ExcelFile('2019.xlsx')
+#         print(xls)
+#         df1 = pandas.read_excel(xls, '2019.xlsx')
+#         print(df1)
+#         with pandas.read_excel(fr"{sibB}\{str(filename)}", sheet_name=str(filename), index_col=0) as f:
+#             print(f)
 
 "ZIPCode"
 "HUD Area Code"
@@ -50,5 +40,3 @@ https://www.nbshare.io/notebook/894032303/Pandas-Read-and-Write-Excel-File/
 "SAFMR 4BR - 90% Payment Standard"	
 "SAFMR 4BR - 110% Payment Standard"
 
-def display_Results():
-    return

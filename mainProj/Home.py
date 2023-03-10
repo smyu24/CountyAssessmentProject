@@ -57,7 +57,7 @@ if tabs=="Settings":
 
 if tabs=="Profile":
     profile()
-    
+
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab
 iconName: This is the name of the icon you wish to use in the sidebar
