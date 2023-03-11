@@ -43,20 +43,23 @@ with st.sidebar: # CALENDER EMBED
 if tabs=="Home":
     home_pg()
 
-if tabs=="U.S Housing":
+elif tabs=="U.S Housing":
     housing()
 
-if tabs=="County":
+elif tabs=="County":
     county()
 
-if tabs=="Recommend":
+elif tabs=="Recommend":
     recommendation()
     
-if tabs=="Settings":
+elif tabs=="Settings":
     settings()
 
-if tabs=="Profile":
+elif tabs=="Profile":
     profile()
+
+else:
+    st.write("Pick a Valid Tab!!!")
 
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab

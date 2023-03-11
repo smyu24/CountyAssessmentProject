@@ -13,6 +13,7 @@ streamlit-bokeh-events
 streamlit-folium
 streamlit-keplergl
 tropycal
+numpy==1.8
 
 
 streamlit-on-Hover-tabs

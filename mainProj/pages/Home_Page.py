@@ -17,8 +17,6 @@ def home_pg():
             
             1. Add map of subway, bus, railway, and other public transportations after querying the user's selected coords (after county analysis and post location decision)
             
-            2. __
-
             # https://www.countyhealthrankings.org/explore-health-rankings/county-health-rankings-model/health-factors/health-behaviors/diet-and-exercise/food-environment-index?year=2022
             # https://www.countyhealthrankings.org/explore-health-rankings/our-methods/calculating-ranks
 
@@ -73,7 +71,7 @@ def home_pg():
                 * neighborhood data??
                 * user’s marital status, education, number of dependents, and employments
                 * public transportation
-            Labor force participation rate in United States of America
+            Labor force participation rate
 
             Maybe: 
                 * "types of people" such as race, ethnicity, religion?
@@ -85,13 +83,6 @@ def home_pg():
                 - sickly: (air purity, pollution, )
                 - 20-30 yrs: population pyramid
                 - students: higher education pursuement rates
-
-            resources:
-                - datacommons
-                - data.org
-                - kaggle
-                - scraped redfin/zillow data???
-                - fbi, BLS, other government sources
 
             # Design
             A single page web page that allows users to select all factors possible, updating and submitting relevant information and then updating the page to do adequete analysis and output.
@@ -112,12 +103,19 @@ def home_pg():
     st.title("Sources")
     st.markdown(
         """
-        [___](https://google.com)
+        [Data Commons](https://www.datacommons.org/)
+        [Data.org](https://data.org/)
+        [Kaggle](https://www.kaggle.com/)
+        [Redfin](https://www.redfin.com/)
+        [Zillow](https://www.zillow.com/)
+        [FBI](https://www.fbi.gov/)
+        [BLS](https://www.bls.gov/)
+        [EPA](https://www.epa.gov/)
+        [Google](https://google.com)
         """
     )
 
     st.info("Toggle the sidebar menu on the left to navigate to different pages.")
-
     st.button('Click me')
     st.checkbox('I agree')
     st.radio('Pick one', ['cats', 'dogs'])
