@@ -23,7 +23,8 @@ st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
 st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
 
-with st.sidebar: # CALENDER EMBED
+
+with st.sidebar: # ADD A TOGGLEABLE SIDE BAR(through st.states); ADD A CALENDER EMBED
     tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Settings', 'Profile'], 
                             iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'account_box', 'assignment'],
                             styles = {'navtab': {'background-color':'#111',
@@ -59,7 +60,7 @@ elif tabs=="Profile":
     profile()
 
 else:
-    st.write("Pick a Valid Tab!!!")
+    st.write("Pick a Valid Tab Please!!!")
 
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab
