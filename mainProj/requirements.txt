@@ -8,7 +8,7 @@ nbserverproxy
 owslib
 palettable
 plotly
-streamlit==1.12.2
+streamlit
 streamlit-bokeh-events
 streamlit-folium
 streamlit-keplergl
