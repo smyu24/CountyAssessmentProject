@@ -1,29 +1,29 @@
 # display csv in years in toggleable formal with years (descending on the top row) ('22-'19)
-import pandas
 import os
 
 #cwd=os.getcwd()
 # separate by HUD Area Code, then get HUD Metro Fair Market Rent Area Name; all relevant data per 
-#sibB = 
-#sibB = sibB[:sibB.rindex("\\")]
-#sibB=sibB+r"\FMR_Data"
-current = os.path.abspath(os.path.dirname(__file__))
-folder = '../FMR_Data/'
-csv = '2019.csv'
-#print(sibB)
+sibB = os.path.dirname(__file__)
+sibB = sibB[:sibB.rindex("\\")]
+sibB=sibB+r"\FMR_Data"
+
+print(sibB)
 # need perms to modify or read the csv files; chmod is not installed on powershell
-df = pandas.read_csv(f"{csv}")
+df = pandas.read_csv("2019.csv", sep=',', header=0)
 
-# for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
-#     if filename.endswith('.xlsx'):
-#         print(filename, os.path.isfile(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx")) # pandas.read_excel(r"C:\Users\smyu2\streamlitProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx", sheet_name=str(filename), index_col=0)
-#         xls = pandas.ExcelFile('2019.xlsx')
-#         print(xls)
-#         df1 = pandas.read_excel(xls, '2019.xlsx')
-#         print(df1)
-#         with pandas.read_excel(fr"{sibB}\{str(filename)}", sheet_name=str(filename), index_col=0) as f:
-#             print(f)
+list_of_df=[]
+for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
+    if filename.endswith('.csv'):
+        print(filename, os.path.isfile(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx")) # pandas.read_excel(r"C:\Users\smyu2\streamlitProj\CountyAssessmentProject\mainProj\FMR_Data\2019.xlsx", sheet_name=str(filename), index_col=0) 
+        list_of_df.append(pl.read_csv(filename))
 
+df = pl.concat(list_of_df)
+output = (
+        df.groupby("HUD Area Code")
+        .agg(
+            pl.col("HUD Area Code").mean()
+            )
+          )
 "ZIPCode"
 "HUD Area Code"
 "HUD Metro Fair Market Rent Area Name"
@@ -42,4 +42,3 @@ df = pandas.read_csv(f"{csv}")
 "SAFMR 4BR"	
 "SAFMR 4BR - 90% Payment Standard"	
 "SAFMR 4BR - 110% Payment Standard"
-
