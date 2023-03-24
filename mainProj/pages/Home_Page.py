@@ -80,7 +80,7 @@ def home_pg():
             Kit towards certain groups of individuals:
                 - workers: (by major, layoffs, hirings, median salary)
                 - parents: (education pre k to highschool, parks, safety, tree density, health care quality(readyness), etc)
-                - sickly: (air purity, pollution, )
+                - sickly: (air purity, pollution)
                 - 20-30 yrs: population pyramid
                 - students: higher education pursuement rates
 

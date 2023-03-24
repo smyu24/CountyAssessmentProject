@@ -27,7 +27,7 @@ def county():
     np.random.seed(42)
 
     _datafill="###################################"
-    @st.cache(allow_output_mutation=True)
+    @st.cache_data(allow_output_mutation=True)
     def fetch_data(samples):
         deltas = cycle([
                 pd.Timedelta(weeks=-2),
@@ -273,7 +273,7 @@ def county():
 
 
 
-    @st.cache()
+    @st.cache_data()
     def get_data_ex4():
         df = pd.DataFrame(
             np.random.randint(0, 100, 50).reshape(-1, 5), columns=list("abcde")
@@ -328,7 +328,7 @@ PandasDataFrame = typing.TypeVar('pandas.core.frame.DataFrame')
 
 
 
-@st.cache
+@st.cache_data
 def normalise_distance_matrix(
         distances: PandasDataFrame,
         max_distance: float
@@ -336,7 +336,7 @@ def normalise_distance_matrix(
     return distances.applymap(lambda x: x / max_distance * TO_PERCENT)
 
 
-@st.cache
+@st.cache_data
 def generate_2d_coords(
         dimensions: PandasDataFrame,
         algorithm: str

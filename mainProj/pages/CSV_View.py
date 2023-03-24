@@ -2,14 +2,17 @@
 import pandas
 import os
 
+#cwd=os.getcwd()
 # separate by HUD Area Code, then get HUD Metro Fair Market Rent Area Name; all relevant data per 
-sibB = os.path.dirname(__file__)
-sibB = sibB[:sibB.rindex("\\")]
-sibB=sibB+r"\FMR_Data"
-
-print(sibB)
+#sibB = 
+#sibB = sibB[:sibB.rindex("\\")]
+#sibB=sibB+r"\FMR_Data"
+current = os.path.abspath(os.path.dirname(__file__))
+folder = '../FMR_Data/'
+csv = '2019.csv'
+#print(sibB)
 # need perms to modify or read the csv files; chmod is not installed on powershell
-df = pandas.read_csv("2019.csv", sep=',', header=0)
+df = pandas.read_csv(f"{csv}")
 
 # for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
 #     if filename.endswith('.xlsx'):
