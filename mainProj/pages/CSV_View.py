@@ -6,10 +6,9 @@ import os
 sibB = os.path.dirname(__file__)
 sibB = sibB[:sibB.rindex("\\")]
 sibB=sibB+r"\FMR_Data"
-
 print(sibB)
-# need perms to modify or read the csv files; chmod is not installed on powershell
-df = pandas.read_csv("2019.csv", sep=',', header=0)
+
+import polar as pl
 
 list_of_df=[]
 for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
