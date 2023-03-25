@@ -8,7 +8,7 @@ sibB = sibB[:sibB.rindex("\\")]
 sibB=sibB+r"\FMR_Data"
 print(sibB)
 
-import polar as pl
+import polars as pl
 
 list_of_df=[]
 for filename in os.listdir(r"C:\Users\smyu2\OneDrive\GitHub\CountyAssessmentProj\CountyAssessmentProject\mainProj\FMR_Data"):
