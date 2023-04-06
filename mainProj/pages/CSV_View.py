@@ -7,40 +7,42 @@ import pathlib
 # @st.cache(allow_output_mutation=True, show_spinner="Fetching data from API...") # fetch from API LOOK HERE
 
 def get_geom_data():
-    list_of_df=[]
-    list_of_df.append(pl.read_csv("https://raw.githubusercontent.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2019.csv"))
-    # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2020.csv"))
-    # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2021.csv"))
-    # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2022.csv"))
-    # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2023.csv"))
-    
-    # NEED RAW FILE LINK NOT REG LINK
+    pl.Config.set_tbl_hide_dataframe_shape(True)
 
-    df = pl.concat(list_of_df)
-    output = (
-            df.groupby("HUD Area Code")
-            .agg(
-                pl.col("HUD Metro Fair Market Rent Area Name"),
-                pl.col("SAFMR 0BR"),
-                pl.col("SAFMR 0BR - 90% Payment Standard"),
-                pl.col("SAFMR 0BR - 110% Payment Standard"),
-                pl.col("SAFMR 1BR"),
-                pl.col("SAFMR 1BR - 90% Payment Standard"),
-                pl.col("SAFMR 1BR - 110% Payment Standard"),
-                pl.col("SAFMR 2BR"	),
-                pl.col("SAFMR 2BR - 90% Payment Standard"),
-                pl.col("SAFMR 2BR - 110% Payment Standard"),
-                # pl.col(),
-                
-                # pl.first("last_name"),
-"SAFMR 3BR"	
-"SAFMR 3BR - 90% Payment Standard"	
-"SAFMR 3BR - 110% Payment Standard"	
-"SAFMR 4BR"	
-"SAFMR 4BR - 90% Payment Standard"	
-"SAFMR 4BR - 110% Payment Standard"
-                )
-              )
+    df_2023=pl.read_csv("FY23_FMRs.csv")
+    df_2023.select(sorted(df_2023.columns))
+
+    df_2022=pl.read_csv("FY22_FMRs_revised.csv")
+    df_2022.select(sorted(df_2022.columns))
+
+    df_2021=pl.read_csv("FY21_4050_FMRs_rev.csv")
+    df_2021.select(sorted(df_2021.columns))
+
+
+
+    print(df_2023.select(sorted(df_2023.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    ),
+    df_2022.select(sorted(df_2022.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    ),
+    df_2021.select(sorted(df_2021.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    ))
+
+    print("\n\n\n")
+
+    df_23_21=[df_2023.select(sorted(df_2023.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    ),
+    df_2022.select(sorted(df_2022.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    ),
+    df_2021.select(sorted(df_2021.columns)).filter(
+        (pl.col('hud_area_code') == 'METRO33860M33860')
+    )]
+
+    print(df_23_21)
     return output
     
 print(get_geom_data())
