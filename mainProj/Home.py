@@ -21,6 +21,7 @@ from pages.Profile import profile
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
+# if allowed, else; st.markdown('<style>' + open('./style_sidebar.css').read() + '</style>', unsafe_allow_html=True)
 st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
 
 
@@ -60,7 +61,8 @@ elif tabs=="Profile":
     profile()
 
 else:
-    st.write("Pick a Valid Tab Please!!!")
+    st.write("Pick a Valid Tab Please!")
+
 
 _ = """PARAMETER DEF/DESCRIPTION ;;;;; ADD A TOGGLEABLE BUTTON ON THE BOTTOM OF THE NAVBAR that IS SEPARATE FROM THE NAVBAR (BLOCK) THAT DISABLES THE JS SLIDING/EXTENDING
 tabName: This is the name of the tab

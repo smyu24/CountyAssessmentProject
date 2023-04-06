@@ -3,6 +3,8 @@ import random
 
 def profile():
     st.title("PROFILE")
+    st.checkbox('Toggle defintion helper')
+
 
     st.info("Toggle the sidebar menu on the left to navigate to different pages.")
     st.button('Click me')

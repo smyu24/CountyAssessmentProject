@@ -81,7 +81,7 @@ def housing():
             return cols[1:]
 
 
-    @st.cache
+    @st.cache_data
     def get_inventory_data(url):
         df = pd.read_csv(url)
         url = url.lower()
@@ -125,7 +125,7 @@ def housing():
         return [str(d) for d in list(set(df["month_date_yyyymm"].tolist()))]
 
 
-    @st.cache(allow_output_mutation=True, show_spinner="Fetching data from API...") # fetch from API LOOK HERE
+    @st.cache_data(show_spinner="Fetching data from API...") # fetch from API LOOK HERE
     def get_geom_data(category):
 
         prefix = (

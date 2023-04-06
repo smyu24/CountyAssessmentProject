@@ -2,17 +2,19 @@
 import os
 import polars as pl
 # separate by HUD Area Code, then get HUD Metro Fair Market Rent Area Name; all relevant data per
-import pandas as pd
-pd.read_excel("https://github.com/smyu24/CountyAssessmentProject/tree/main/mainProj/pages/FY23_FMRs.xlsx", engine="openpyxl")
-#print((pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2019.csv")).head())
+import pathlib
+
 # @st.cache(allow_output_mutation=True, show_spinner="Fetching data from API...") # fetch from API LOOK HERE
+
 def get_geom_data():
     list_of_df=[]
-    list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2019.csv"))
+    list_of_df.append(pl.read_csv("https://raw.githubusercontent.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2019.csv"))
     # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2020.csv"))
     # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2021.csv"))
     # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2022.csv"))
     # list_of_df.append(pl.read_csv("https://github.com/smyu24/CountyAssessmentProject/blob/main/mainProj/FMR_Data/2023.csv"))
+    
+    # NEED RAW FILE LINK NOT REG LINK
 
     df = pl.concat(list_of_df)
     output = (
@@ -41,4 +43,4 @@ def get_geom_data():
               )
     return output
     
-#print(get_geom_data())
+print(get_geom_data())

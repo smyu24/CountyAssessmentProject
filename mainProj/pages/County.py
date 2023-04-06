@@ -27,7 +27,7 @@ def county():
     np.random.seed(42)
 
     _datafill="###################################"
-    @st.cache_data(allow_output_mutation=True)
+    @st.cache_data()
     def fetch_data(samples):
         deltas = cycle([
                 pd.Timedelta(weeks=-2),

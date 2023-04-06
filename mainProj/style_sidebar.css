@@ -38,7 +38,7 @@ button[kind="header"] {
     /* } 
 
     /* ON HOVER */
-    section[data-testid='stSidebar'] {
+    section[data-testid='stSidebar'] > div:hover{
     width: 300px;
     }
 
