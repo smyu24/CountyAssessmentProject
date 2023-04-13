@@ -1,18 +1,26 @@
-import polars as pl
+# importing os module
+import os
+  
+# gives the path of demo.py
+path = os.path.realpath(__file__)
+import os
+dir = os.path.dirname(path)
 
+dir = dir.replace('pages', 'FMR_Data')
+
+os.chdir(dir) # change directory
+
+import polars as pl
 pl.Config.set_tbl_hide_dataframe_shape(True)
 
-prefix_file_path = "/content/drive/MyDrive/FMR_Analysis_Data/"
-
-df_2023=pl.read_csv(prefix_file_path+"FY23_FMRs.csv")
+df_2023=pl.read_csv("FY23_FMRs.csv")
 df_2023.select(sorted(df_2023.columns))
 
-df_2022=pl.read_csv(prefix_file_path+"FY22_FMRs_revised.csv")
+df_2022=pl.read_csv("FY22_FMRs_revised.csv")
 df_2022.select(sorted(df_2022.columns))
 
-df_2021=pl.read_csv(prefix_file_path+"FY21_4050_FMRs_rev.csv")
+df_2021=pl.read_csv("FY21_4050_FMRs_rev.csv")
 df_2021.select(sorted(df_2021.columns))
-
 
 
 print(df_2023.select(sorted(df_2023.columns)).filter(
