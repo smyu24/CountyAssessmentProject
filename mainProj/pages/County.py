@@ -10,7 +10,7 @@ import typing
 import pandas as pd
 from scipy.spatial import distance
 import streamlit as st
-from sklearn import decomposition
+#from sklearn import decomposition
 import numpy as np
 from st_aggrid import AgGrid, DataReturnMode, GridUpdateMode, GridOptionsBuilder, JsCode
 
