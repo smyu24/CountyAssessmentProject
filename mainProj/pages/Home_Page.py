@@ -100,7 +100,7 @@ def home_pg():
         """
     )
 
-    st.title("Sources")
+    st.title("Demographic And Socioeconomic Information Sources")
     st.markdown(
         """
         [Data Commons](https://www.datacommons.org/)
