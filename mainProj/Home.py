@@ -14,7 +14,7 @@ from st_on_hover_tabs import on_hover_tabs
 
 from pages.Home_Page import home_pg
 from pages.Housing import housing
-from pages.County import county
+from pages.CountyDataDisplay import county
 from pages.Recommendation import recommendation
 from pages.Settings import settings
 from pages.Profile import profile
