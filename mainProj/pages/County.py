@@ -2,6 +2,8 @@ DOC="""
 https://github.com/PablocFonseca/streamlit-aggrid
 https://staggrid-examples.streamlit.app/
 EXAMPLES TAKEN FROM HERE
+
+filter by fmr code
 """
 
 import enum
@@ -51,53 +53,54 @@ def county():
         }
         return pd.DataFrame(dummy_data)
 
-    _sidebar="########################################"#Example controlers
-    st.sidebar.subheader("St-AgGrid example options")
+    col1, col2, col3, col4, col5 = st.columns((1,1,1,1,2))
+    
+    with col1:
+        sample_size = st.number_input("Rows", min_value=10, value=30)
+    
+    with col2:
+        grid_height = st.number_input("Grid height", min_value=200, max_value=800, value=300)
 
-    sample_size = st.sidebar.number_input("rows", min_value=10, value=30)
-    grid_height = st.sidebar.number_input("Grid height", min_value=200, max_value=800, value=300)
+    with col3:
+        return_mode = st.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
+        return_mode_value = DataReturnMode.__members__[return_mode]
 
-    return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
-    return_mode_value = DataReturnMode.__members__[return_mode]
+    with col4:
+        update_mode = st.selectbox("Update Mode", list(GridUpdateMode.__members__), index=len(GridUpdateMode.__members__)-1)
+        update_mode_value = GridUpdateMode.__members__[update_mode]
 
-    update_mode = st.sidebar.selectbox("Update Mode", list(GridUpdateMode.__members__), index=len(GridUpdateMode.__members__)-1)
-    update_mode_value = GridUpdateMode.__members__[update_mode]
+    with col5:
+        #features
+        fit_columns_on_grid_load = st.checkbox("Fit Grid Columns on Load")
 
-    #enterprise modules
-    enable_enterprise_modules = st.sidebar.checkbox("Enable Enterprise Modules")
-    if enable_enterprise_modules:
-        enable_sidebar =st.sidebar.checkbox("Enable grid sidebar", value=False)
-    else:
-        enable_sidebar = False
+        enable_selection=st.checkbox("Enable row selection", value=False)
 
-    #features
-    fit_columns_on_grid_load = st.sidebar.checkbox("Fit Grid Columns on Load")
+    col1_2, col2_2 = st.columns((1,1))
 
-    enable_selection=st.sidebar.checkbox("Enable row selection", value=True)
-    if enable_selection:
-        st.sidebar.subheader("Selection options")
-        selection_mode = st.sidebar.radio("Selection Mode", ['single','multiple'], index=1)
+    with col1_2:
+        if enable_selection:
+            st.subheader("Selection options")
+            selection_mode = st.radio("Selection Mode", ['single','multiple'], index=1)
 
-        use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
-        if use_checkbox:
-            groupSelectsChildren = st.sidebar.checkbox("Group checkbox select children", value=True)
-            groupSelectsFiltered = st.sidebar.checkbox("Group checkbox includes filtered", value=True)
+            use_checkbox = st.checkbox("Use check box for selection", value=True)
+            if use_checkbox:
+                groupSelectsChildren = st.checkbox("Group checkbox select children", value=True)
+                groupSelectsFiltered = st.checkbox("Group checkbox includes filtered", value=True)
 
-        if ((selection_mode == 'multiple') & (not use_checkbox)):
-            rowMultiSelectWithClick = st.sidebar.checkbox("Multiselect with click (instead of holding CTRL)", value=False)
-            if not rowMultiSelectWithClick:
-                suppressRowDeselection = st.sidebar.checkbox("Suppress deselection (while holding CTRL)", value=False)
-            else:
-                suppressRowDeselection=False
-        st.sidebar.text("___")
+            if ((selection_mode == 'multiple') & (not use_checkbox)):
+                rowMultiSelectWithClick = st.checkbox("Multiselect with click (instead of holding CTRL)", value=False)
+                if not rowMultiSelectWithClick:
+                    suppressRowDeselection = st.checkbox("Suppress deselection (while holding CTRL)", value=False)
+                else:
+                    suppressRowDeselection=False
 
-    enable_pagination = st.sidebar.checkbox("Enable pagination", value=False)
-    if enable_pagination:
-        st.sidebar.subheader("Pagination options")
-        paginationAutoSize = st.sidebar.checkbox("Auto pagination size", value=True)
-        if not paginationAutoSize:
-            paginationPageSize = st.sidebar.number_input("Page size", value=5, min_value=0, max_value=sample_size)
-        st.sidebar.text("___")
+    with col2_2:
+        enable_pagination = st.checkbox("Enable pagination", value=False)
+        if enable_pagination:
+            st.subheader("Pagination options")
+            paginationAutoSize = st.checkbox("Auto pagination size", value=True)
+            if not paginationAutoSize:
+                paginationPageSize = st.number_input("Page size", value=5, min_value=0, max_value=sample_size)
 
     df = fetch_data(sample_size)
 
@@ -131,16 +134,6 @@ def county():
     """)
     gb.configure_column("group", cellStyle=cellsytle_jscode)
 
-    if enable_sidebar:
-        gb.configure_side_bar()
-
-    if enable_selection:
-        gb.configure_selection(selection_mode)
-        if use_checkbox:
-            gb.configure_selection(selection_mode, use_checkbox=True, groupSelectsChildren=groupSelectsChildren, groupSelectsFiltered=groupSelectsFiltered)
-        if ((selection_mode == 'multiple') & (not use_checkbox)):
-            gb.configure_selection(selection_mode, use_checkbox=False, rowMultiSelectWithClick=rowMultiSelectWithClick, suppressRowDeselection=suppressRowDeselection)
-
     if enable_pagination:
         if paginationAutoSize:
             gb.configure_pagination(paginationAutoPageSize=True)
@@ -164,7 +157,6 @@ def county():
         update_mode=update_mode_value,
         fit_columns_on_grid_load=fit_columns_on_grid_load,
         allow_unsafe_jscode=True, #Set it to True to allow jsfunction to be injected
-        enable_enterprise_modules=enable_enterprise_modules
         )
 
     df = grid_response['data']
@@ -177,7 +169,7 @@ def county():
 
     with st.spinner("Displaying results..."):
         #displays the chart
-        chart_data = df.loc[:,['apple','banana','chocolate']].assign(source='total')
+        chart_data = df.loc[:,['apple','banana','chocolate']].assign(source='total') # replace with db column names
 
         if not selected_df.empty :
             selected_data = selected_df.loc[:,['apple','banana','chocolate']].assign(source='selection')
@@ -267,9 +259,6 @@ def county():
         enable_enterprise_modules=True,
         update_mode=GridUpdateMode.SELECTION_CHANGED
     )
-
-
-
 
 
 
