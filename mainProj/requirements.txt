@@ -1,17 +1,21 @@
-geemap
-geopandas
-jupyter-server-proxy
-keplergl
-leafmap
-localtileserver
-nbserverproxy
-owslib
-palettable
-plotly
-streamlit
-streamlit-bokeh-events
-streamlit-folium
-streamlit-keplergl
-tropycal
-numpy
-streamlit-on-Hover-tabs
+pip install geemap
+pip install geopandas
+pip install jupyter-server-proxy
+pip install keplergl
+pip install leafmap
+pip install localtileserver
+pip install nbserverproxy
+pip install owslib
+pip install palettable
+pip install plotly
+pip install streamlit
+pip install streamlit-bokeh-events
+pip install streamlit-folium
+pip install streamlit-keplergl
+pip install tropycal
+pip install numpy
+pip install streamlit-on-Hover-tabs
+pip install streamlit-aggrid
+
+pip install streamlit-pandas-profiling
+

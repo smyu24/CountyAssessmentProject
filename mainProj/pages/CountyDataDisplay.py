@@ -292,6 +292,24 @@ def county():
 
 
 
+Experimental="""
+CHECK THIS OUT LATER: https://okld-gallery.streamlit.app/?p=pandas-profiling
+
+import pandas as pd
+import pandas_profiling
+import streamlit as st
+
+from streamlit_pandas_profiling import st_profile_report
+
+df = pd.read_csv("https://storage.googleapis.com/tf-datasets/titanic/train.csv")
+pr = df.profile_report()
+
+st_profile_report(pr)
+
+"""
+
+
+
 
 a="""
 HOFSTEDE_DIMENSIONS = ['pdi', 'idv', 'mas', 'uai', 'lto', 'ind', 'ivr']
