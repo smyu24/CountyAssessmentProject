@@ -1,48 +1,97 @@
-# importing os module
-import os
-  
-# gives the path of demo.py
-path = os.path.realpath(__file__)
-import os
-dir = os.path.dirname(path)
-
-dir = dir.replace('pages', 'FMR_Data')
-
-os.chdir(dir) # change directory
-
-import polars as pl
-pl.Config.set_tbl_hide_dataframe_shape(True)
-
-df_2023=pl.read_csv("FY23_FMRs.csv")
-df_2023.select(sorted(df_2023.columns))
-
-df_2022=pl.read_csv("FY22_FMRs_revised.csv")
-df_2022.select(sorted(df_2022.columns))
-
-df_2021=pl.read_csv("FY21_4050_FMRs_rev.csv")
-df_2021.select(sorted(df_2021.columns))
 
 
-print(df_2023.select(sorted(df_2023.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-),
-df_2022.select(sorted(df_2022.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-),
-df_2021.select(sorted(df_2021.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-))
+import pandas as pd
 
-print("\n\n\n")
+# Always display all the columns
+pd.set_option('display.width', 5000)
+pd.set_option('display.max_columns', 60)
 
-df_23_21=[df_2023.select(sorted(df_2023.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-),
-df_2022.select(sorted(df_2022.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-),
-df_2021.select(sorted(df_2021.columns)).filter(
-    (pl.col('hud_area_code') == 'METRO33860M33860')
-)]
+prefix_file_path = "/content/drive/MyDrive/FairMarketRents_Analysis_Data/"
 
-print(df_23_21)
+df=pd.read_csv(prefix_file_path+"FloridaData.csv")
+
+df1=df.drop(df.columns[[0, 1, 2]], axis = 1) # column cut
+df1=df1.rename(columns=df1.iloc[0])
+# print(df1.head(0))
+df1=df1.drop(index=[0]) # drop top row
+df1=df1.dropna(how='all')
+
+
+NicheRankingFl=[
+    'Leon County',
+    'Seminole County',
+    'Alachua County',
+    'St. Johns County',
+    'Hillsborough County',
+    'Orange County',
+    'Brevard County',
+    'Sarasota County',
+    'Pinellas County',
+    'Clay County',
+    'Martin County',
+    'Dual County',
+    'Okaloosa County',
+    'Palm Beach County',
+    'Indian River County',
+    'Nassau County',
+    'Escambia County',
+    'Broward County',
+    'Manatee County',
+    'Walton County',
+    'Paso County',
+    'Santa Rosa County',
+    'Lake County',
+    'Monroe County',
+    'Lee County',
+    'Collier County',
+    'Wakulla County',
+    'Bay County',
+    'Flagler County',
+    'Volusia County',
+    'Sumter County',
+    'Union County',
+    'Jackson County',
+    'Lafayette County',
+    'Columbia County',
+    'Suwannee County',
+    'Polk County',
+    'Highlands County',
+    'Marion County',
+    'Charlotte County',
+    'Calhoun County',
+    'Miami-Dade County',
+    'Dixie County',
+    'Hernando County',
+    'Gilchrist County',
+    'Osceola County',
+    'St. Lucie County',
+    'Okeechobee County',
+    'Gulf County',
+    'Glades County',
+    'Taylor County',
+    'Citrus County',
+    'Liberty County',
+    'Gadsden County',
+    'Baker County',
+    'Levy County',
+    'Franklin County',
+    'Jefferson County',
+    'Putnam County',
+    'Washington County',
+    'Holmes County',
+    'Bradford County',
+    'Hardee County',
+    'Hamilton County',
+    'Madison County',
+    'DeSoto County',
+    'Hendry County'
+]
+
+res = {val: idx + 1 for idx, val in enumerate(NicheRankingFl)}
+
+df_FloridaNiche=pd.DataFrame.from_dict([res])
+print(df_FloridaNiche)
+
+
+df1.Niche_Rank = pd.to_numeric(df1.Niche_Rank, errors='coerce') # turns the ranking into float types bc pandas sort doesnt do well with integers
+df_temp = df1.sort_values('Niche_Rank', ascending=True)

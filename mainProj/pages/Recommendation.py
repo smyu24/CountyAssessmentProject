@@ -1,6 +1,6 @@
 import streamlit as st
 def recommendation():
-    st.write("HELLOOOOO2")
+    st.write("RECOMMENDATION PAGE")
     temp="""
     https://github.com/ash2shukla/streamlit-bokeh-events
     This could be used to plot and add interactability with data/figuers 
