@@ -17,7 +17,6 @@ from pages.Home_Page import home_pg
 from pages.Housing import housing
 from pages.CountyDataDisplay import county
 from pages.Recommendation import recommendation
-from pages.Settings import settings
 from pages.Profile import profile
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
@@ -27,8 +26,8 @@ st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
 
 
 with st.sidebar: # ADD A TOGGLEABLE SIDE BAR(through st.states); ADD A CALENDER EMBED
-    tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Settings', 'Profile'], 
-                            iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'account_box', 'assignment'],
+    tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Profile'], 
+                            iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'assignment'],
                             styles = {'navtab': {'background-color':'#111',
                                                 'color': '#818181',
                                                 'font-size': '18px',
@@ -54,9 +53,6 @@ elif tabs=="County":
 
 elif tabs=="Recommend":
     recommendation()
-    
-elif tabs=="Settings":
-    settings()
 
 elif tabs=="Profile":
     profile()

@@ -16,6 +16,6 @@ pip install tropycal
 pip install numpy
 pip install streamlit-on-Hover-tabs
 pip install streamlit-aggrid
-
+pip install streamlit-elements
 pip install streamlit-pandas-profiling
 

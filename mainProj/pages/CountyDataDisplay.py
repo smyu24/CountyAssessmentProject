@@ -4,6 +4,7 @@ https://staggrid-examples.streamlit.app/
 EXAMPLES TAKEN FROM HERE
 
 filter by fmr code
+by state, (GIS and other data visualization)
 """
 
 import enum
@@ -22,36 +23,30 @@ import altair as alt
 from itertools import cycle
 
 import requests
+import os, sys, inspect
+
 
 ADVICE="https://okld-gallery.streamlit.app/?p=pandas-profiling USE THIS FOR GENERAL REPORT"
 
 def county():
-    np.random.seed(42)
-
-    _datafill="###################################"
+    st.title("Fair Market Rents Data and Trends")
+    st.markdown(
+            """**Introduction:** This section is designed to visualize and display data for regional and state Fair Market Rent trends. 
+            The data sources include [United States Department of Housing and Urban Development](https://www.huduser.gov/portal/datasets/fmr.html) and ___
+        """)
+    
+    currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    parentdir = os.path.dirname(currentdir)
+    sys.path.insert(0, parentdir)
+    
+    FMR_AVAIL_YEARS = os.listdir(r"C:\Users\smyu2\OneDrive\Documents\GitHub\CountyAssessmentProject\mainProj\FairMarketRents_Data")
+    
+    SELECTION_FMR = st.selectbox('Year To Display', (FMR_AVAIL_YEARS))
+    
     @st.cache_data()
-    def fetch_data(samples):
-        deltas = cycle([
-                pd.Timedelta(weeks=-2),
-                pd.Timedelta(days=-1),
-                pd.Timedelta(hours=-1),
-                pd.Timedelta(0),
-                pd.Timedelta(minutes=5),
-                pd.Timedelta(seconds=10),
-                pd.Timedelta(microseconds=50),
-                pd.Timedelta(microseconds=10)
-                ])
-        dummy_data = {
-            "date_time_naive":pd.date_range('2021-01-01', periods=samples),
-            "apple":np.random.randint(0,100,samples) / 3.0,
-            "banana":np.random.randint(0,100,samples) / 5.0,
-            "chocolate":np.random.randint(0,100,samples),
-            "group": np.random.choice(['A','B'], size=samples),
-            "date_only":pd.date_range('2020-01-01', periods=samples).date,
-            "timedelta":[next(deltas) for i in range(samples)],
-            "date_tz_aware":pd.date_range('2022-01-01', periods=samples, tz="Asia/Katmandu")
-        }
-        return pd.DataFrame(dummy_data)
+    def fetch_data(YEAR):
+        dataset = pd.read_csv(fr"FairMarketRents_Data/{YEAR}", encoding='utf-8') 
+        return pd.DataFrame(dataset)
 
     col1, col2, col3, col4, col5 = st.columns((1,1,1,1,2))
     
@@ -59,7 +54,7 @@ def county():
         sample_size = st.number_input("Rows", min_value=10, value=30)
     
     with col2:
-        grid_height = st.number_input("Grid height", min_value=200, max_value=800, value=300)
+        grid_height = st.number_input("Grid height", min_value=200, max_value=800, value=280)
 
     with col3:
         return_mode = st.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
@@ -71,8 +66,7 @@ def county():
 
     with col5:
         #features
-        fit_columns_on_grid_load = st.checkbox("Fit Grid Columns on Load")
-
+        fit_columns_on_grid_load = st.checkbox("Fit Grid Columns on Load", value=True)
         enable_selection=st.checkbox("Enable row selection", value=False)
 
     col1_2, col2_2 = st.columns((1,1))
@@ -95,26 +89,30 @@ def county():
                     suppressRowDeselection=False
 
     with col2_2:
-        enable_pagination = st.checkbox("Enable pagination", value=False)
+        enable_pagination = st.checkbox("Enable pagination", value=True)
         if enable_pagination:
             st.subheader("Pagination options")
             paginationAutoSize = st.checkbox("Auto pagination size", value=True)
             if not paginationAutoSize:
                 paginationPageSize = st.number_input("Page size", value=5, min_value=0, max_value=sample_size)
 
-    df = fetch_data(sample_size)
+    df = fetch_data(SELECTION_FMR)
+
+
 
     #Infer basic colDefs from dataframe types
     gb = GridOptionsBuilder.from_dataframe(df)
 
     #customize gridOptions
     gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-    gb.configure_column("date_only", type=["dateColumnFilter","customDateTimeFormat"], custom_format_string='yyyy-MM-dd', pivot=True)
-    gb.configure_column("date_tz_aware", type=["dateColumnFilter","customDateTimeFormat"], custom_format_string='yyyy-MM-dd HH:mm zzz', pivot=True)
 
-    gb.configure_column("apple", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=2, aggFunc='sum')
-    gb.configure_column("banana", type=["numericColumn", "numberColumnFilter", "customNumericFormat"], precision=1, aggFunc='avg')
-    gb.configure_column("chocolate", type=["numericColumn", "numberColumnFilter", "customCurrencyFormat"], custom_currency_symbol="R$", aggFunc='max')
+    gb.configure_column("pop", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+    gb.configure_column("fmr_0", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+    gb.configure_column("fmr_1", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+    gb.configure_column("fmr_2", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+    gb.configure_column("fmr_3", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+    gb.configure_column("fmr_4", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=0, aggFunc='sum')
+
 
     #configures last row to use custom styles based on cell's value, injecting JsCode on components front end
     cellsytle_jscode = JsCode("""
@@ -164,15 +162,12 @@ def county():
     selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
 
 
-
-
-
     with st.spinner("Displaying results..."):
         #displays the chart
-        chart_data = df.loc[:,['apple','banana','chocolate']].assign(source='total') # replace with db column names
+        chart_data = df.loc[:,['fmr_0','fmr_1', 'fmr_2', 'fmr_3', 'fmr_4']].assign(source='total') # replace with db column names
 
         if not selected_df.empty :
-            selected_data = selected_df.loc[:,['apple','banana','chocolate']].assign(source='selection')
+            selected_data = selected_df.loc[:,['fmr_0','fmr_1', 'fmr_2', 'fmr_3', 'fmr_4']].assign(source='selection')
             chart_data = pd.concat([chart_data, selected_data])
 
         chart_data = pd.melt(chart_data, id_vars=['source'], var_name="item", value_name="quantity")
@@ -182,21 +177,11 @@ def county():
             y=alt.Y("sum(quantity):Q", stack=False),
             color=alt.Color('source:N', scale=alt.Scale(domain=['total','selection'])),
         )
-
-        st.header("Component Outputs - Example chart")
         st.altair_chart(chart, use_container_width=True)
 
 
-        st.subheader("Returned grid data:") 
-        #returning as HTML table bc streamlit has issues when rendering dataframes with timedeltas:
-        # https://github.com/streamlit/streamlit/issues/3781
-        st.markdown(grid_response['data'].to_html(), unsafe_allow_html=True)
 
-
-
-
-
-
+# ['fmr_0','fmr_1', 'fmr_2', 'fmr_3', 'fmr_4']
     url = "https://www.ag-grid.com/example-assets/master-detail-data.json"
     df = pd.read_json(url)
     df["callRecords"] = df["callRecords"].apply(lambda x: pd.json_normalize(x))
@@ -250,7 +235,6 @@ def county():
         },
     }
 
-
     r = AgGrid(
         df,
         gridOptions=gridOptions,
@@ -259,56 +243,6 @@ def county():
         enable_enterprise_modules=True,
         update_mode=GridUpdateMode.SELECTION_CHANGED
     )
-
-
-
-    @st.cache_data()
-    def get_data_ex4():
-        df = pd.DataFrame(
-            np.random.randint(0, 100, 50).reshape(-1, 5), columns=list("abcde")
-        )
-        return df
-
-    df = get_data_ex4()
-    st.markdown("""
-    ## Two grids 
-    As in other streamlit components, it is possible to render two components for the same data using distinct ```key``` parameters.
-    """)
-
-    st.subheader("Input data")
-    st.dataframe(df)
-
-    st.subheader("Editable Grids")
-    c1, c2 = st.columns(2)
-    with c1:
-        grid_return1 = AgGrid(df, key='grid1', editable=True)
-        st.text("Grid 1 Return")
-        st.write(grid_return1['data'])
-
-    with c2:
-        grid_return2 = AgGrid(df,  key='grid2', editable=True)
-        st.text("Grid 2 Return")
-        st.write(grid_return2['data'])
-
-
-
-Experimental="""
-CHECK THIS OUT LATER: https://okld-gallery.streamlit.app/?p=pandas-profiling
-
-import pandas as pd
-import pandas_profiling
-import streamlit as st
-
-from streamlit_pandas_profiling import st_profile_report
-
-df = pd.read_csv("https://storage.googleapis.com/tf-datasets/titanic/train.csv")
-pr = df.profile_report()
-
-st_profile_report(pr)
-
-"""
-
-
 
 
 a="""

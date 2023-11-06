@@ -1,6 +1,16 @@
 import streamlit as st
 import random
 
+"""
+Complete Profile.py to have preset and modifiable settings for user prioities
+
+- workers: (by major, layoffs, hirings, median salary)
+- parents: (education pre k to highschool, parks, safety, tree density, health care quality(readyness), etc)
+- sickly: (air purity, pollution)
+- 20-30 yrs: population pyramid
+- students: higher education pursuement rates
+"""
+
 def profile():
     st.title("PROFILE")
     st.checkbox('Toggle defintion helper')
