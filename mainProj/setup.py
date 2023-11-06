@@ -20,7 +20,8 @@ setup(
         "streamlit-keplergl",
         "tropycal",
         "numpy",
-        "streamlit-on-Hover-tabs"
+        "streamlit-on-Hover-tabs",
+        "streamlit-elements==0.1.*"
     ],
     # ...
 )
