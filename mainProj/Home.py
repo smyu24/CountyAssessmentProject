@@ -12,12 +12,16 @@ import streamlit as st
 import leafmap.colormaps as cm
 from leafmap.common import hex_to_rgb
 from st_on_hover_tabs import on_hover_tabs
+from streamlit_folium import st_folium
+import folium
 
 from pages.Home_Page import home_pg
 from pages.Housing import housing
 from pages.CountyDataDisplay import county
 from pages.Recommendation import recommendation
+from pages.Explore import explore
 from pages.Profile import profile
+from pages.Calendar import calendar
 
 st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 st.markdown('<style>' + open('./style.css').read() + '</style>', unsafe_allow_html=True)
@@ -26,8 +30,8 @@ st.markdown("<style> ul {display: none;} </style>", unsafe_allow_html=True)
 
 
 with st.sidebar: # ADD A TOGGLEABLE SIDE BAR(through st.states); ADD A CALENDER EMBED
-    tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Profile'], 
-                            iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'assignment'],
+    tabs = on_hover_tabs(tabName=['Home', 'U.S Housing', 'County', 'Recommend', 'Explore', 'Profile', 'Calendar'], 
+                            iconName=['dashboard', 'house', 'travel_explore', 'thumbs_up_down', 'map', 'assignment', 'calendar'],
                             styles = {'navtab': {'background-color':'#111',
                                                 'color': '#818181',
                                                 'font-size': '18px',
@@ -56,6 +60,12 @@ elif tabs=="Recommend":
 
 elif tabs=="Profile":
     profile()
+
+elif tabs=="Explore":
+    explore()
+
+elif tabs=="Calendar":
+    calendar()
 
 else:
     st.write("Pick a Valid Tab Please!")

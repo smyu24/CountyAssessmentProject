@@ -13,7 +13,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-df=pd.read_csv(r"mainProj/Florida/FloridaData.csv")
+df=pd.read_excel(r"mainProj/Florida/FloridaData.xlsx")
 
 df1=df.drop(df.columns[[0, 1, 2]], axis = 1) # column cut
 df1=df1.rename(columns=df1.iloc[0])
@@ -98,6 +98,6 @@ df_FloridaNiche=pd.DataFrame.from_dict([res])
 print(df_FloridaNiche)
 
 
-df1.Niche_Rank = pd.to_numeric(df1.Niche_Rank, errors='coerce') # turns the ranking into float types bc pandas sort doesnt do well with integers
+# df1.Niche_Rank = pd.to_numeric(df1.Niche_Rank, errors='coerce') # turns the ranking into float types bc pandas sort doesnt do well with integers
 df_temp = df1.sort_values('Niche_Rank', ascending=True)
 

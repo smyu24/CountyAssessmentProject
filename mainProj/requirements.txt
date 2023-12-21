@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-pip install geemap
-pip install geopandas
-pip install jupyter-server-proxy
-pip install keplergl
-pip install leafmap
-pip install localtileserver
-pip install nbserverproxy
-pip install owslib
-pip install palettable
-pip install plotly
-pip install streamlit
-pip install streamlit-bokeh-events
-pip install streamlit-folium
-pip install streamlit-keplergl
-pip install tropycal
-pip install numpy
-pip install streamlit-on-Hover-tabs
-pip install streamlit-aggrid
-pip install streamlit-elements
-pip install streamlit-pandas-profiling
-=======
 geemap
 geopandas
 jupyter-server-proxy
@@ -39,6 +17,4 @@ numpy
 streamlit-on-Hover-tabs
 streamlit-aggrid
 streamlit-elements
-streamlit-pandas-profiling
->>>>>>> 485d0b33147a7966ee096dd9cf063653ae6526f0
-
+openpyxl

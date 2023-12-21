@@ -1,5 +1,4 @@
 from functools import partial
-from streamlit_elements import nivo, media, mui, sync, lazy, editor, elements, event, dashboard
 
 import json
 import streamlit as st
@@ -41,7 +40,6 @@ class Dashboard:
             yield
 
     class Item(ABC):
-
         def __init__(self, board, x, y, w, h, **item_props):
             self._key = str(uuid4())
             self._draggable_class = Dashboard.DRAGGABLE_CLASS
@@ -466,19 +464,30 @@ class DataGrid(Dashboard.Item):
                     onCellEditCommit=self._handle_edit,
                 )
 
+
 def home_pg():
     st.title("County Assessment Project :house_with_garden: :office: :department_store:")
     st.markdown(
         """
+        Hold default data in sql db
+
         Things to have on front page...
+
         Social Media Feeds Widget: Embed your project's social media feeds, showing the latest posts and updates to encourage visitors to follow your profiles.
+        
         Contact or Support Widget:Provide a widget with contact information, including a phone number and email address.; Offer a "Chat with Us" or "Support" option for real-time assistance.
+        
         Newsletter Signup Widget:Include a widget that prompts users to subscribe to your newsletter to receive updates on new property listings, market insights, and industry news.
+        
         Calendar
+        
         Latest Blog Posts Widget:Display links to your most recent blog posts or articles on real estate trends, property buying tips, and related topics.
+        
         Market Trends Widget:Display graphs or charts illustrating real estate market trends, such as price fluctuations, supply and demand, or market activity.
+        
         Noticed Trends
 
+        Break down of current emerging trends; summary bitesized 
         """
     )
     if "w" not in state:
@@ -515,7 +524,62 @@ def home_pg():
             w.card(w.editor.get_content("Card content"))
             w.data_grid(w.editor.get_content("Data grid"))
 
-    
+    with elements("nivo_charts"):
+        from streamlit_elements import nivo
+
+        DATA = [
+            { "taste": "fruity", "chardonay": 93, "carmenere": 61, "syrah": 114 },
+            { "taste": "bitter", "chardonay": 91, "carmenere": 37, "syrah": 72 },
+            { "taste": "heavy", "chardonay": 56, "carmenere": 95, "syrah": 99 },
+            { "taste": "strong", "chardonay": 64, "carmenere": 90, "syrah": 30 },
+            { "taste": "sunny", "chardonay": 119, "carmenere": 94, "syrah": 103 },
+        ]
+
+        with mui.Box(sx={"height": 500}):
+            nivo.Radar(
+                data=DATA,
+                keys=[ "chardonay", "carmenere", "syrah" ],
+                indexBy="taste",
+                valueFormat=">-.2f",
+                margin={ "top": 70, "right": 80, "bottom": 40, "left": 80 },
+                borderColor={ "from": "color" },
+                gridLabelOffset=36,
+                dotSize=10,
+                dotColor={ "theme": "background" },
+                dotBorderWidth=2,
+                motionConfig="wobbly",
+                legends=[
+                    {
+                        "anchor": "top-left",
+                        "direction": "column",
+                        "translateX": -50,
+                        "translateY": -40,
+                        "itemWidth": 80,
+                        "itemHeight": 20,
+                        "itemTextColor": "#999",
+                        "symbolSize": 12,
+                        "symbolShape": "circle",
+                        "effects": [
+                            {
+                                "on": "hover",
+                                "style": {
+                                    "itemTextColor": "#000"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                theme={
+                    "background": "#FFFFFF",
+                    "textColor": "#31333F",
+                    "tooltip": {
+                        "container": {
+                            "background": "#FFFFFF",
+                            "color": "#31333F",
+                        }
+                    }
+                }
+            )
     st.title("About the Variables/Algorithm")
     st.markdown(
         """
