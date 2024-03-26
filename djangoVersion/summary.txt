@@ -1,0 +1,8 @@
+React, for building interactive UIs
+Poetry, for managing the environment and its dependencies
+django-js-reverse, for generating URLs on JS
+React Bootstrap, for responsive styling
+Webpack, for bundling static assets
+Celery, for background worker tasks
+WhiteNoise with brotlipy, for efficient static files serving
+prospector and ESLint with pre-commit for automated quality assurance (does not replace proper testing!)
